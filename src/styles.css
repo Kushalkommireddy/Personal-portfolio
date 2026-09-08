@@ -1,1 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes folderFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(-2deg); }
+}
+
+.animate-folder-float {
+  animation: folderFloat 4s ease-in-out infinite;
+}
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+}
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes reverseSpin {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes synapsePulse {
+  0%, 100% {
+    stroke-dashoffset: 0;
+    opacity: 0.3;
+  }
+  50% {
+    stroke-dashoffset: 40;
+    opacity: 0.9;
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 28s linear infinite;
+}
+
+.animate-reverse-spin {
+  animation: reverseSpin 22s linear infinite;
+}
+
+.animate-synapse {
+  stroke-dasharray: 8, 12;
+  animation: synapsePulse 3.5s ease-in-out infinite;
+}
