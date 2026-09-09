@@ -616,7 +616,7 @@ export class App implements OnInit {
     },
     {
       category: 'Full Stack',
-      skills: ['HTML5', 'CSS', 'JavaScript', 'React.js', 'Tailwind', 'Next.js', 'Angular.js', 'React Native']
+      skills: ['HTML5', 'CSS', 'JavaScript', 'UI/UX', 'React.js', 'Tailwind', 'Next.js', 'Angular.js', 'React Native']
     },
     {
       category: 'Backend',
