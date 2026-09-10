@@ -43,7 +43,7 @@ interface Certificate {
          [class.opacity-0]="isFadingOut()" 
          class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0b0f19] transition-opacity duration-700 pointer-events-none">
       <div class="text-center px-6 transform animate-pulse">
-        <div class="text-4xl sm:text-5xl mb-4">🚀</div>
+        <div class="text-4xl sm:text-5xl mb-4">🏇</div>
         <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
           Welcome aboard!
         </h1>
@@ -695,7 +695,8 @@ export class App implements OnInit {
       summary: 'A career-guidance mobile app that intelligently matches user-uploaded certified skills with real-time job opportunities and provides personalized job role insights.',
       image: '/Jobpath.png',
       tags: ['React-Native', 'Node.js', 'Express.js', 'MongoDB', 'Expo Go'],
-      githubUrl: 'https://github.com/kushalkommireddy'
+      githubUrl: 'https://github.com/kushalkommireddy',
+      Demo: 'https://drive.google.com/file/d/1WqGzAagJNoOmLV1N_aKz9lkc-xQRxXDZ/view?usp=sharing'
     },
     {
       title: 'TripWise - Indian Budget Trip Maker',
@@ -703,7 +704,7 @@ export class App implements OnInit {
       image: '/Tripwise.png',
       tags: ['Next.js', 'TypeScript', 'Neon', 'Gmail SMTP', 'Git', 'Vercel'],
       githubUrl: 'https://github.com/kushalkommireddy',
-      liveUrl: 'https://github.com/kushalkommireddy'
+      liveUrl: 'https://trip-wise-tan.vercel.app/'
     },
     {
       title: 'Do it - Expense Tracker + To Do List',
