@@ -696,7 +696,7 @@ export class App implements OnInit {
       image: '/Jobpath.png',
       tags: ['React-Native', 'Node.js', 'Express.js', 'MongoDB', 'Expo Go'],
       githubUrl: 'https://github.com/kushalkommireddy',
-      Demo: 'https://drive.google.com/file/d/1WqGzAagJNoOmLV1N_aKz9lkc-xQRxXDZ/view?usp=sharing'
+      liveUrl: 'https://drive.google.com/file/d/1WqGzAagJNoOmLV1N_aKz9lkc-xQRxXDZ/view?usp=sharing'
     },
     {
       title: 'TripWise - Indian Budget Trip Maker',
