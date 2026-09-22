@@ -33,6 +33,21 @@ interface Certificate {
   imageUrl: string;
 }
 
+interface SkillNode {
+  name: string;
+  level: number; // 0 to 100
+}
+
+interface MacroPillar {
+  id: string;
+  label: string;
+  score: number; // 0 to 100 for polygon mapping
+  angleDeg: number;
+  icon: string;
+  description: string;
+  skills: SkillNode[];
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -76,7 +91,7 @@ interface Certificate {
             Get in Touch
           </a>
           <button (click)="toggleMobileMenu()" 
-                  type="button"
+                  type="button" 
                   aria-label="Toggle Navigation"
                   class="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,67 +119,61 @@ interface Certificate {
       <section id="about" class="min-h-[calc(100vh-5rem)] flex items-center py-16 px-6 max-w-7xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
           <!-- Neural Network Constellation Background + Profile Avatar -->
-<div class="lg:col-span-5 flex justify-center items-center relative select-none">
-  <!-- Outer Neural Canvas -->
-  <div class="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[26rem] md:h-[26rem] flex items-center justify-center">
-    
-    <!-- 1. Ambient Synaptic Glow -->
-    <div class="absolute inset-4 rounded-full bg-gradient-to-tr from-cyan-500/20 via-blue-600/10 to-indigo-500/20 blur-2xl animate-pulse pointer-events-none"></div>
+          <div class="lg:col-span-5 flex justify-center items-center relative select-none">
+            <div class="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[26rem] md:h-[26rem] flex items-center justify-center">
+              
+              <!-- 1. Ambient Synaptic Glow -->
+              <div class="absolute inset-4 rounded-full bg-gradient-to-tr from-cyan-500/20 via-blue-600/10 to-indigo-500/20 blur-2xl animate-pulse pointer-events-none"></div>
 
-    <!-- 2. Rotating Synapse Vector Ring (Axons & Dendrites) -->
-    <svg class="absolute inset-0 w-full h-full animate-spin-slow pointer-events-none" viewBox="0 0 400 400" fill="none">
-      <!-- Synaptic Network Tracks -->
-      <circle cx="200" cy="200" r="160" stroke="#06b6d4" stroke-width="1" stroke-opacity="0.25" stroke-dasharray="6 8" class="animate-synapse" />
-      <circle cx="200" cy="200" r="185" stroke="#3b82f6" stroke-width="0.75" stroke-opacity="0.2" />
+              <!-- 2. Rotating Synapse Vector Ring -->
+              <svg class="absolute inset-0 w-full h-full animate-spin-slow pointer-events-none" viewBox="0 0 400 400" fill="none">
+                <circle cx="200" cy="200" r="160" stroke="#06b6d4" stroke-width="1" stroke-opacity="0.25" stroke-dasharray="6 8" class="animate-synapse" />
+                <circle cx="200" cy="200" r="185" stroke="#3b82f6" stroke-width="0.75" stroke-opacity="0.2" />
 
-      <!-- Synaptic Axon Connections -->
-      <line x1="200" y1="40" x2="330" y2="100" stroke="#22d3ee" stroke-width="1.2" stroke-opacity="0.35" stroke-dasharray="4 6" class="animate-synapse" />
-      <line x1="330" y1="100" x2="360" y2="240" stroke="#06b6d4" stroke-width="1.2" stroke-opacity="0.3" />
-      <line x1="360" y1="240" x2="260" y2="350" stroke="#3b82f6" stroke-width="1.2" stroke-opacity="0.35" stroke-dasharray="6 6" class="animate-synapse" />
-      <line x1="260" y1="350" x2="110" y2="330" stroke="#06b6d4" stroke-width="1.2" stroke-opacity="0.3" />
-      <line x1="110" y1="330" x2="40" y2="200" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.35" stroke-dasharray="5 7" class="animate-synapse" />
-      <line x1="40" y1="200" x2="90" y2="80" stroke="#06b6d4" stroke-width="1.2" stroke-opacity="0.3" />
-      <line x1="90" y1="80" x2="200" y2="40" stroke="#60a5fa" stroke-width="1.2" stroke-opacity="0.35" stroke-dasharray="4 6" class="animate-synapse" />
+                <line x1="200" y1="40" x2="330" y2="100" stroke="#22d3ee" stroke-width="1.2" stroke-opacity="0.35" stroke-dasharray="4 6" class="animate-synapse" />
+                <line x1="330" y1="100" x2="360" y2="240" stroke="#06b6d4" stroke-width="1.2" stroke-opacity="0.3" />
+                <line x1="360" y1="240" x2="260" y2="350" stroke="#3b82f6" stroke-width="1.2" stroke-opacity="0.35" stroke-dasharray="6 6" class="animate-synapse" />
+                <line x1="260" y1="350" x2="110" y2="330" stroke="#06b6d4" stroke-width="1.2" stroke-opacity="0.3" />
+                <line x1="110" y1="330" x2="40" y2="200" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.35" stroke-dasharray="5 7" class="animate-synapse" />
+                <line x1="40" y1="200" x2="90" y2="80" stroke="#06b6d4" stroke-width="1.2" stroke-opacity="0.3" />
+                <line x1="90" y1="80" x2="200" y2="40" stroke="#60a5fa" stroke-width="1.2" stroke-opacity="0.35" stroke-dasharray="4 6" class="animate-synapse" />
 
-      <!-- Firing Synapse Nodes (Floating Neurons) -->
-      <circle cx="200" cy="40" r="4.5" fill="#22d3ee" class="filter drop-shadow-[0_0_6px_#06b6d4]" />
-      <circle cx="330" cy="100" r="3.5" fill="#38bdf8" class="filter drop-shadow-[0_0_5px_#38bdf8]" />
-      <circle cx="360" cy="240" r="5" fill="#06b6d4" class="filter drop-shadow-[0_0_8px_#06b6d4]" />
-      <circle cx="260" cy="350" r="4" fill="#60a5fa" class="filter drop-shadow-[0_0_6px_#60a5fa]" />
-      <circle cx="110" cy="330" r="4.5" fill="#22d3ee" class="filter drop-shadow-[0_0_6px_#06b6d4]" />
-      <circle cx="40" cy="200" r="3.5" fill="#38bdf8" class="filter drop-shadow-[0_0_5px_#38bdf8]" />
-      <circle cx="90" cy="80" r="4" fill="#06b6d4" class="filter drop-shadow-[0_0_6px_#06b6d4]" />
-    </svg>
+                <circle cx="200" cy="40" r="4.5" fill="#22d3ee" class="filter drop-shadow-[0_0_6px_#06b6d4]" />
+                <circle cx="330" cy="100" r="3.5" fill="#38bdf8" class="filter drop-shadow-[0_0_5px_#38bdf8]" />
+                <circle cx="360" cy="240" r="5" fill="#06b6d4" class="filter drop-shadow-[0_0_8px_#06b6d4]" />
+                <circle cx="260" cy="350" r="4" fill="#60a5fa" class="filter drop-shadow-[0_0_6px_#60a5fa]" />
+                <circle cx="110" cy="330" r="4.5" fill="#22d3ee" class="filter drop-shadow-[0_0_6px_#06b6d4]" />
+                <circle cx="40" cy="200" r="3.5" fill="#38bdf8" class="filter drop-shadow-[0_0_5px_#38bdf8]" />
+                <circle cx="90" cy="80" r="4" fill="#06b6d4" class="filter drop-shadow-[0_0_6px_#06b6d4]" />
+              </svg>
 
-    <!-- 3. Inner Reverse Counter-Orbit Ring -->
-    <svg class="absolute inset-8 w-[calc(100%-4rem)] h-[calc(100%-4rem)] animate-reverse-spin pointer-events-none" viewBox="0 0 300 300" fill="none">
-      <circle cx="150" cy="150" r="130" stroke="#06b6d4" stroke-width="1" stroke-opacity="0.2" stroke-dasharray="12 16" />
-      <!-- Concentrated Micro-Nodes -->
-      <circle cx="150" cy="20" r="3" fill="#22d3ee" />
-      <circle cx="265" cy="150" r="3.5" fill="#67e8f9" class="filter drop-shadow-[0_0_6px_#22d3ee]" />
-      <circle cx="150" cy="280" r="3" fill="#06b6d4" />
-      <circle cx="35" cy="150" r="3" fill="#38bdf8" />
-    </svg>
+              <!-- 3. Inner Reverse Counter-Orbit Ring -->
+              <svg class="absolute inset-8 w-[calc(100%-4rem)] h-[calc(100%-4rem)] animate-reverse-spin pointer-events-none" viewBox="0 0 300 300" fill="none">
+                <circle cx="150" cy="150" r="130" stroke="#06b6d4" stroke-width="1" stroke-opacity="0.2" stroke-dasharray="12 16" />
+                <circle cx="150" cy="20" r="3" fill="#22d3ee" />
+                <circle cx="265" cy="150" r="3.5" fill="#67e8f9" class="filter drop-shadow-[0_0_6px_#22d3ee]" />
+                <circle cx="150" cy="280" r="3" fill="#06b6d4" />
+                <circle cx="35" cy="150" r="3" fill="#38bdf8" />
+              </svg>
 
-    <!-- 4. Pulsing Corner Tech Accents -->
-    <div class="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-cyan-400/80 rounded-tr-lg"></div>
-    <div class="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-cyan-400/80 rounded-bl-lg"></div>
+              <!-- 4. Pulsing Corner Tech Accents -->
+              <div class="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-cyan-400/80 rounded-tr-lg"></div>
+              <div class="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-cyan-400/80 rounded-bl-lg"></div>
 
-    <!-- 5. Profile Picture Container (Clipped within the Synaptic Core) -->
-    <div class="relative z-10 w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-3xl overflow-hidden p-1 bg-gradient-to-tr from-cyan-500/60 via-blue-500/20 to-cyan-400/80 shadow-[0_0_35px_rgba(6,182,212,0.25)] group">
-      <div class="w-full h-full rounded-[1.4rem] overflow-hidden bg-slate-900 relative">
-        <img src="/Kushal.jpg" 
-             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80'"
-             alt="Kushal Kommireddy" 
-             loading="lazy" 
-             class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500" />
-        <!-- Digital Vignette Layer -->
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0b0f19]/70 via-transparent to-transparent"></div>
-      </div>
-    </div>
+              <!-- 5. Profile Picture Container -->
+              <div class="relative z-10 w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-3xl overflow-hidden p-1 bg-gradient-to-tr from-cyan-500/60 via-blue-500/20 to-cyan-400/80 shadow-[0_0_35px_rgba(6,182,212,0.25)] group">
+                <div class="w-full h-full rounded-[1.4rem] overflow-hidden bg-slate-900 relative">
+                  <img src="/Kushal.jpg" 
+                       onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80'"
+                       alt="Kushal Kommireddy" 
+                       loading="lazy" 
+                       class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-[#0b0f19]/70 via-transparent to-transparent"></div>
+                </div>
+              </div>
 
-  </div>
-</div>
+            </div>
+          </div>
 
           <div class="lg:col-span-7 space-y-6">
             <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-950/60 text-cyan-400 border border-cyan-800/60">
@@ -209,65 +218,283 @@ interface Certificate {
         </div>
       </section>
 
-      <!-- 4. SKILLS SECTION WITH BIOMETRIC SPREAD ANIMATION -->
-      <section id="skills" class="py-24 px-6 max-w-7xl mx-auto border-t border-slate-800/80 transition-all duration-700">
+      <!-- 4. SKILLS SECTION: DUAL-STATE RADAR SPIDER WEB (MACRO & MICRO WEB) -->
+      <section id="skills" class="py-24 px-6 max-w-7xl mx-auto border-t border-slate-800/80 relative">
         <div class="text-center mb-12">
           <h2 class="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-2">Technical Matrix</h2>
-          <h3 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Skills & Tech Stack</h3>
+          <h3 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Interactive Skill Web</h3>
+          <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto mt-2">
+            Click any core pillar node on the geometric radar web below to explode its detailed micro-skills web.
+          </p>
         </div>
 
-        <!-- Biometric Scanner Trigger (Hidden after unlock) -->
-        <div *ngIf="!skillsUnlocked()" class="flex flex-col items-center justify-center py-16 px-4">
-          <div (click)="triggerSkillsUnlock()"
-               class="relative group cursor-pointer p-8 rounded-3xl bg-slate-900/80 border-2 border-dashed border-cyan-500/40 hover:border-cyan-400 hover:shadow-[0_0_40px_rgba(6,182,212,0.3)] transition-all duration-500 select-none flex flex-col items-center text-center max-w-md w-full">
+        <!-- Pillar Selector Tabs for Direct Accessibility & Mobile Devices -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-10 max-w-4xl mx-auto">
+          <button *ngFor="let pillar of macroPillars"
+                  (click)="selectPillar(pillar)"
+                  type="button"
+                  [ngClass]="activePillar()?.id === pillar.id ? 'bg-cyan-500 text-slate-950 font-bold border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.4)] scale-105' : 'bg-slate-900/80 text-slate-300 border-slate-800 hover:border-cyan-500/40 hover:text-white'"
+                  class="px-3.5 py-1.5 rounded-xl border text-xs transition-all duration-300 flex items-center gap-1.5">
+            <span>{{ pillar.icon }}</span>
+            <span>{{ pillar.label }}</span>
+          </button>
+          <button *ngIf="activePillar()"
+                  (click)="resetToMacro()"
+                  type="button"
+                  class="px-3.5 py-1.5 rounded-xl border border-red-500/40 bg-red-950/20 text-red-400 hover:bg-red-900/30 text-xs font-semibold transition-all">
+            ✕ Show Full Macro Web
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[520px]">
+          
+          <!-- LEFT/MAIN CONTAINER: THE RADAR WEB CANVAS -->
+          <div class="lg:col-span-7 flex justify-center items-center relative select-none">
             
-            <!-- Laser Scan Line -->
-            <div *ngIf="isScanning()" 
-                 class="absolute inset-x-4 top-0 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_15px_#22d3ee] animate-bounce"></div>
+            <!-- (A) THE DEFAULT VIEW: THE MACRO WEB -->
+            <div *ngIf="!activePillar()" 
+                 class="relative w-[340px] h-[340px] sm:w-[460px] sm:h-[460px] md:w-[500px] md:h-[500px] flex items-center justify-center transition-all duration-700 ease-out">
+              
+              <!-- Subtle Background Web Ambient Radiance -->
+              <div class="absolute inset-8 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none"></div>
 
-            <!-- Fingerprint / Cursor Icon -->
-            <div class="relative w-24 h-24 mb-6 flex items-center justify-center rounded-2xl bg-cyan-950/60 border border-cyan-500/30 group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-14 h-14 text-cyan-400 group-hover:text-cyan-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 004 11a7.96 7.96 0 001.076 4m8.058 6.945a16.035 16.035 0 01-3.134-2.945"/>
+              <svg class="w-full h-full" viewBox="0 0 500 500">
+                <defs>
+                  <!-- Gradient for the Macro Polygon Fill -->
+                  <linearGradient id="macroPolygonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.45" />
+                    <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.15" />
+                  </linearGradient>
+                  <!-- Radial Node Glow Filter -->
+                  <filter id="cyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+
+                <!-- 1. Concentric Web Rings (20%, 40%, 60%, 80%, 100%) -->
+                <polygon *ngFor="let level of [0.2, 0.4, 0.6, 0.8, 1.0]"
+                         [attr.points]="getHexagonPoints(250, 250, 180 * level)"
+                         fill="none"
+                         stroke="#1e293b"
+                         stroke-width="1.2"
+                         stroke-dasharray="3 4" />
+
+                <!-- 2. The 6 Main Structural Axes -->
+                <line *ngFor="let pillar of macroPillars"
+                      x1="250" y1="250"
+                      [attr.x2]="polarToCartesian(250, 250, 185, pillar.angleDeg).x"
+                      [attr.y2]="polarToCartesian(250, 250, 185, pillar.angleDeg).y"
+                      stroke="#334155"
+                      stroke-width="1.2" />
+
+                <!-- 3. The Glowing Semi-Transparent Macro Polygon Area -->
+                <polygon [attr.points]="getMacroPolygonCoordinates()"
+                         fill="url(#macroPolygonGrad)"
+                         stroke="#06b6d4"
+                         stroke-width="2.2"
+                         class="animate-radar-glow transition-all duration-700" />
+
+                <!-- 4. Interactive Node Points on Axes with Hover & Click Trigger -->
+                <g *ngFor="let pillar of macroPillars"
+                   (click)="selectPillar(pillar)"
+                   class="cursor-pointer group">
+                  <!-- Node Outer Ping Ring -->
+                  <circle [attr.cx]="getPillarCoord(pillar).x"
+                          [attr.cy]="getPillarCoord(pillar).y"
+                          r="12"
+                          fill="#06b6d4"
+                          fill-opacity="0.15"
+                          class="group-hover:fill-opacity-40 transition-all duration-300" />
+                  
+                  <!-- Core Node Bullet -->
+                  <circle [attr.cx]="getPillarCoord(pillar).x"
+                          [attr.cy]="getPillarCoord(pillar).y"
+                          r="6"
+                          fill="#22d3ee"
+                          stroke="#ffffff"
+                          stroke-width="1.8"
+                          filter="url(#cyanGlow)"
+                          class="group-hover:scale-125 transition-transform duration-300 origin-center" />
+
+                  <!-- Text Labels with Score -->
+                  <text [attr.x]="getLabelPosition(pillar).x"
+                        [attr.y]="getLabelPosition(pillar).y"
+                        text-anchor="middle"
+                        dominant-baseline="central"
+                        class="fill-slate-300 text-[11px] sm:text-[12px] font-semibold tracking-wide group-hover:fill-cyan-400 group-hover:font-bold transition-colors">
+                    {{ pillar.label }} ({{ pillar.score }}%)
+                  </text>
+                </g>
+
+                <!-- Center Core Radar Beacon -->
+                <circle cx="250" cy="250" r="4" fill="#06b6d4" />
+                <circle cx="250" cy="250" r="10" stroke="#06b6d4" stroke-opacity="0.3" fill="none" class="animate-ping" />
               </svg>
-              <div class="absolute inset-0 rounded-2xl border border-cyan-400 animate-ping opacity-25"></div>
-            </div>
 
-            <span class="text-sm font-bold uppercase tracking-widest text-white mb-2 group-hover:text-cyan-400 transition-colors">
-              {{ isScanning() ? 'Authenticating & Decrypting...' : 'Place Cursor / Thumb Impression' }}
-            </span>
-            <p class="text-xs text-slate-400 max-w-xs leading-relaxed">
-              Click or tap the biometric pad to unlock and spread Kushal's complete skillset across the matrix.
-            </p>
-          </div>
-        </div>
-
-        <!-- Unlocked & Spread Skills Grid -->
-        <div *ngIf="skillsUnlocked()" class="relative">
-          <!-- Reset / Relock Button -->
-          <div class="flex justify-end mb-6">
-            <button (click)="skillsUnlocked.set(false)" 
-                    type="button" 
-                    class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition">
-              ↺ Relock Matrix
-            </button>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div *ngFor="let group of skillGroups; let i = index" 
-                 [style.animation-delay]="(i * 90) + 'ms'"
-                 class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] transition-all duration-300 group animate-[fadeInUp_0.5s_cubic-bezier(0.16,1,0.3,1)_forwards]">
-              <h4 class="text-lg font-bold text-white mb-4 pb-2 border-b border-slate-800 group-hover:text-cyan-400 transition-colors">
-                {{ group.category }}
-              </h4>
-              <div class="flex flex-wrap gap-2">
-                <span *ngFor="let item of group.skills" 
-                      class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-800/90 text-slate-300 border border-slate-700/60 group-hover:border-slate-600 hover:text-cyan-300 hover:scale-105 transition-all">
-                  {{ item }}
+              <!-- Central Guidance Tooltip -->
+              <div class="absolute bottom-1 pointer-events-none text-center">
+                <span class="text-[11px] font-medium text-cyan-400/80 bg-slate-950/80 px-3 py-1 rounded-full border border-cyan-500/20 backdrop-blur-sm">
+                  ⚡ Click any vertex node to explode deep-dive web
                 </span>
               </div>
             </div>
+
+            <!-- (B) THE EXPLODED MICRO WEB (SECONDARY WEB BURSTS INTO FOCUS) -->
+            <div *ngIf="activePillar()" 
+                 class="relative w-[340px] h-[340px] sm:w-[460px] sm:h-[460px] md:w-[500px] md:h-[500px] flex items-center justify-center animate-micro-burst">
+              
+              <!-- Intense Ambient Core for Active Pillar -->
+              <div class="absolute inset-10 rounded-full bg-cyan-500/15 blur-2xl pointer-events-none"></div>
+
+              <svg class="w-full h-full" viewBox="0 0 500 500">
+                <defs>
+                  <linearGradient id="microPolygonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.5" />
+                    <stop offset="100%" stop-color="#0284c7" stop-opacity="0.2" />
+                  </linearGradient>
+                </defs>
+
+                <!-- Micro Web Concentric Nested Webs -->
+                <polygon *ngFor="let level of [0.25, 0.5, 0.75, 1.0]"
+                         [attr.points]="getMicroPolygonSkeleton(level)"
+                         fill="none"
+                         stroke="#1e293b"
+                         stroke-width="1.2"
+                         stroke-dasharray="3 3" />
+
+                <!-- Secondary Spider Web Radial Spines -->
+                <line *ngFor="let sk of activePillar()!.skills; let i = index"
+                      x1="250" y1="250"
+                      [attr.x2]="getMicroSkillCoord(i, 100).x"
+                      [attr.y2]="getMicroSkillCoord(i, 100).y"
+                      stroke="#334155"
+                      stroke-width="1.2" />
+
+                <!-- The Secondary Exploded Micro Polygon -->
+                <polygon [attr.points]="getMicroPolygonCoordinates()"
+                         fill="url(#microPolygonGrad)"
+                         stroke="#38bdf8"
+                         stroke-width="2.5"
+                         class="animate-radar-glow" />
+
+                <!-- Central Exploded Core Node (The Parent Pillar) -->
+                <circle cx="250" cy="250" r="28" fill="#082f49" stroke="#0ea5e9" stroke-width="2" />
+                <text x="250" y="250" text-anchor="middle" dominant-baseline="central" class="fill-cyan-300 font-black text-xs">
+                  {{ activePillar()!.icon }}
+                </text>
+
+                <!-- Exploded Skill Nodes on Web Tips -->
+                <g *ngFor="let sk of activePillar()!.skills; let i = index" class="cursor-pointer group">
+                  <!-- Skill Node Point -->
+                  <circle [attr.cx]="getMicroSkillCoord(i, sk.level).x"
+                          [attr.cy]="getMicroSkillCoord(i, sk.level).y"
+                          r="5.5"
+                          fill="#38bdf8"
+                          stroke="#ffffff"
+                          stroke-width="1.5"
+                          class="group-hover:scale-150 transition-transform duration-300 origin-center" />
+
+                  <!-- Skill Label along Axis Tip -->
+                  <text [attr.x]="getMicroSkillLabelCoord(i).x"
+                        [attr.y]="getMicroSkillLabelCoord(i).y"
+                        text-anchor="middle"
+                        dominant-baseline="central"
+                        class="fill-slate-200 text-[10px] sm:text-[11px] font-semibold group-hover:fill-cyan-300 group-hover:font-bold transition-colors">
+                    {{ sk.name }}
+                  </text>
+                </g>
+              </svg>
+            </div>
+
           </div>
+
+          <!-- RIGHT CONTAINER: DETAIL CARDS / PROFICIENCY METRICS -->
+          <div class="lg:col-span-5 flex flex-col justify-center">
+            
+            <!-- State 1: When viewing the Macro Web (No Pillar Selected) -->
+            <div *ngIf="!activePillar()" class="p-6 sm:p-8 rounded-3xl bg-slate-900/70 border border-slate-800 shadow-xl space-y-6">
+              <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
+                <div>
+                  <span class="text-xs uppercase font-bold text-cyan-400 tracking-wider">System Overview</span>
+                  <h4 class="text-2xl font-black text-white mt-1">Core Competency Web</h4>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-cyan-950/60 border border-cyan-800/60 flex items-center justify-center text-xl">
+                  🕸️
+                </div>
+              </div>
+
+              <p class="text-slate-300 text-sm leading-relaxed">
+                The macro spider web synthesizes my skills into 6 architectural pillars. Every axis represents verified project implementations and coursework.
+              </p>
+
+              <!-- Quick List of 6 Pillars -->
+              <div class="space-y-3">
+                <div *ngFor="let p of macroPillars" 
+                     (click)="selectPillar(p)"
+                     class="flex items-center justify-between p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 hover:border-cyan-500/50 hover:bg-slate-900 cursor-pointer transition-all duration-300 group">
+                  <div class="flex items-center gap-3">
+                    <span class="text-lg">{{ p.icon }}</span>
+                    <div>
+                      <h5 class="text-xs font-bold text-white group-hover:text-cyan-400 transition-colors">{{ p.label }}</h5>
+                      <p class="text-[10px] text-slate-400">{{ p.skills.length }} verified technologies</p>
+                    </div>
+                  </div>
+                  <span class="text-xs font-black text-cyan-400 px-2 py-0.5 rounded bg-cyan-950 border border-cyan-800/60">
+                    {{ p.score }}%
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- State 2: When an Exploded Micro Web is Active -->
+            <div *ngIf="activePillar()" class="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-cyan-500/40 shadow-[0_0_30px_rgba(6,182,212,0.15)] space-y-6 animate-fadeInUp">
+              <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xl">{{ activePillar()!.icon }}</span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">Micro Breakdown</span>
+                  </div>
+                  <h4 class="text-2xl font-black text-white mt-1">{{ activePillar()!.label }}</h4>
+                </div>
+                <button (click)="resetToMacro()" 
+                        type="button"
+                        class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 hover:text-white border border-slate-700 transition">
+                  ← Back to Macro
+                </button>
+              </div>
+
+              <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                {{ activePillar()!.description }}
+              </p>
+
+              <!-- Progress Metrics of Micro Skills inside this Pillar -->
+              <div class="space-y-3.5 max-h-72 overflow-y-auto pr-1">
+                <div *ngFor="let sk of activePillar()!.skills" class="space-y-1">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="font-bold text-white">{{ sk.name }}</span>
+                    <span class="text-cyan-400 font-semibold">{{ sk.level }}%</span>
+                  </div>
+                  <div class="h-2 w-full bg-slate-950 rounded-full overflow-hidden border border-slate-800">
+                    <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full transition-all duration-700"
+                         [style.width]="sk.level + '%'"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-800 flex justify-between items-center text-[11px] text-slate-400">
+                <span>Verified in Production & Academic Lab Projects</span>
+                <button (click)="resetToMacro()" class="text-cyan-400 font-semibold hover:underline">
+                  Collapse Web &uarr;
+                </button>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </section>
 
@@ -390,7 +617,7 @@ interface Certificate {
              class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0b0f19]/90 backdrop-blur-md">
           <div class="relative w-full max-w-2xl bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl p-6">
             <button (click)="closeCertModal()" 
-                    type="button"
+                    type="button" 
                     aria-label="Close Modal"
                     class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 rounded-lg bg-slate-800/80">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -412,7 +639,7 @@ interface Certificate {
 
             <div class="flex items-center justify-between mt-6">
               <button (click)="prevCert()" 
-                      type="button"
+                      type="button" 
                       class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-sm font-semibold transition">
                 &larr; Prev
               </button>
@@ -423,7 +650,7 @@ interface Certificate {
                       class="h-2 rounded-full cursor-pointer transition-all duration-300"></span>
               </div>
               <button (click)="nextCert()" 
-                      type="button"
+                      type="button" 
                       class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-sm font-semibold transition">
                 Next &rarr;
               </button>
@@ -488,7 +715,7 @@ interface Certificate {
                   <img src="/Virat.jpg" 
                        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=400&q=80'"
                        alt="Virat Kohli" 
-                       loading="lazy"
+                       loading="lazy" 
                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
                 </div>
                 <div>
@@ -536,12 +763,12 @@ interface Certificate {
           </a>
 
           <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kushalkommireddy@gmail.com&su=Portfolio%20Inquiry%20-%20Kushal%20Kommireddy" 
-   target="_blank" 
-   rel="noopener noreferrer"
-   class="px-5 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm flex items-center gap-2.5 transition duration-300 hover:scale-105 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-  Email
-</a>
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="px-5 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm flex items-center gap-2.5 transition duration-300 hover:scale-105 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            Email
+          </a>
 
           <a href="tel:+919032613369"
              class="px-5 py-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500 text-white font-medium text-sm flex items-center gap-2.5 transition duration-300 hover:scale-105 shadow-md">
@@ -555,7 +782,7 @@ interface Certificate {
     <!-- 10. BACK TO TOP BUTTON -->
     <button *ngIf="showBackToTop()" 
             (click)="scrollToTop()" 
-            type="button"
+            type="button" 
             aria-label="Scroll back to top"
             class="fixed bottom-6 right-6 z-40 p-3.5 rounded-2xl bg-cyan-500 text-slate-950 shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:bg-cyan-400 hover:scale-110 active:scale-95 transition-all duration-300">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
@@ -571,9 +798,8 @@ export class App implements OnInit {
   isLoading = signal(false);
   isFadingOut = signal(false);
 
-  // Biometric Skill Unlock States
-  skillsUnlocked = signal(false);
-  isScanning = signal(false);
+  // Active Selected Pillar for Exploded Micro-Web
+  activePillar = signal<MacroPillar | null>(null);
 
   isMobileMenuOpen = signal(false);
   showBackToTop = signal(false);
@@ -609,38 +835,103 @@ export class App implements OnInit {
     }
   ];
 
-  skillGroups = [
+  // 6 CORE PILLARS FOR THE MACRO & MICRO SPIDER WEB
+  macroPillars: MacroPillar[] = [
     {
-      category: 'Programming Languages',
-      skills: ['Python', 'C', 'C++', 'Java']
+      id: 'fullstack',
+      label: 'Full Stack & Mobile',
+      score: 92,
+      angleDeg: 270, // Top
+      icon: '💻',
+      description: 'Modern reactive frontend architectures, fluid mobile design, state-driven interfaces, and accessibility standards.',
+      skills: [
+        { name: 'React.js', level: 95 },
+        { name: 'React Native', level: 90 },
+        { name: 'Next.js', level: 88 },
+        { name: 'Angular.js', level: 85 },
+        { name: 'Tailwind CSS', level: 96 },
+        { name: 'JavaScript (ES6+)', level: 94 },
+        { name: 'HTML5 & CSS3', level: 98 },
+        { name: 'UI / UX Design', level: 86 }
+      ]
     },
     {
-      category: 'Full Stack',
-      skills: ['HTML5', 'CSS', 'JavaScript', 'UI/UX', 'React.js', 'Tailwind', 'Next.js', 'Angular.js', 'React Native']
+      id: 'backend',
+      label: 'Backend & APIs',
+      score: 88,
+      angleDeg: 330, // Top-Right
+      icon: '⚙️',
+      description: 'Modular microservice design, stateless authentication, RESTful APIs, and efficient request throughput.',
+      skills: [
+        { name: 'Node.js', level: 92 },
+        { name: 'Express.js', level: 90 },
+        { name: 'Flask', level: 85 },
+        { name: 'FastAPI', level: 86 },
+        { name: 'JWT & Auth', level: 88 }
+      ]
     },
     {
-      category: 'Backend',
-      skills: ['Node.js', 'Express.js', 'Flask']
+      id: 'ai-ml',
+      label: 'AI & Data Science',
+      score: 90,
+      angleDeg: 30, // Bottom-Right
+      icon: '🧠',
+      description: 'Applied machine learning pipelines, deep learning architectures, CNN computer vision, and NLP models.',
+      skills: [
+        { name: 'Python for ML', level: 94 },
+        { name: 'CNN (Vision)', level: 88 },
+        { name: 'NLP', level: 86 },
+        { name: 'Pandas', level: 92 },
+        { name: 'NumPy', level: 90 },
+        { name: 'OpenCV', level: 84 },
+        { name: 'Data Analysis', level: 91 }
+      ]
     },
     {
-      category: 'Machine Learning Tools',
-      skills: ['Python for Machine Learning', 'Data Analysis', 'CNN', 'NLP']
+      id: 'programming',
+      label: 'Core Languages',
+      score: 94,
+      angleDeg: 90, // Bottom
+      icon: '⚡',
+      description: 'Algorithmic efficiency, clean object-oriented architecture, and robust memory/runtime management.',
+      skills: [
+        { name: 'Python', level: 96 },
+        { name: 'C', level: 88 },
+        { name: 'C++', level: 85 },
+        { name: 'Java', level: 82 },
+        { name: 'Data Structures', level: 90 }
+      ]
     },
     {
-      category: 'Libraries',
-      skills: ['Pandas', 'NumPy', 'OpenCV']
+      id: 'databases',
+      label: 'Databases & Storage',
+      score: 87,
+      angleDeg: 150, // Bottom-Left
+      icon: '🗄️',
+      description: 'Schema modeling, relational relational queries, ACID guarantees, and scalable cloud databases.',
+      skills: [
+        { name: 'MongoDB', level: 90 },
+        { name: 'MySQL', level: 88 },
+        { name: 'PostgreSQL', level: 85 },
+        { name: 'Supabase', level: 89 },
+        { name: 'Neon Serverless', level: 86 }
+      ]
     },
     {
-      category: 'Developer Tools',
-      skills: ['Jupyter', 'VSCode', 'Figma']
-    },
-    {
-      category: 'Databases',
-      skills: ['MySQL', 'MongoDB', 'Supabase', 'Neon', 'PostgreSQL']
-    },
-    {
-      category: 'DevOps & MLOps',
-      skills: ['Git', 'GitHub', 'Docker', 'FastAPI', 'CI/CD']
+      id: 'devops-tools',
+      label: 'DevOps & Tooling',
+      score: 86,
+      angleDeg: 210, // Top-Left
+      icon: '🛠️',
+      description: 'Containerization, source-control workflows, automated pipelines, deployment, and prototyping.',
+      skills: [
+        { name: 'Git & GitHub', level: 94 },
+        { name: 'Docker', level: 82 },
+        { name: 'CI / CD', level: 80 },
+        { name: 'VSCode', level: 95 },
+        { name: 'Jupyter', level: 92 },
+        { name: 'Figma', level: 84 }
+      ]
     }
   ];
 
@@ -744,15 +1035,85 @@ export class App implements OnInit {
     }
   }
 
-  // Trigger Scanner and Staggered Burst
-  triggerSkillsUnlock() {
-    if (this.isScanning() || this.skillsUnlocked()) return;
-    this.isScanning.set(true);
+  // MACRO & MICRO RADAR WEB GEOMETRY HELPERS
+  polarToCartesian(centerX: number, centerY: number, radius: number, angleInDegrees: number) {
+    const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
+    return {
+      x: centerX + radius * Math.cos(angleInRadians),
+      y: centerY + radius * Math.sin(angleInRadians)
+    };
+  }
 
-    setTimeout(() => {
-      this.isScanning.set(false);
-      this.skillsUnlocked.set(true);
-    }, 700);
+  getHexagonPoints(cx: number, cy: number, r: number): string {
+    return this.macroPillars
+      .map(p => {
+        const pt = this.polarToCartesian(cx, cy, r, p.angleDeg);
+        return `${pt.x},${pt.y}`;
+      })
+      .join(' ');
+  }
+
+  getPillarCoord(pillar: MacroPillar) {
+    const r = (pillar.score / 100) * 180;
+    return this.polarToCartesian(250, 250, r, pillar.angleDeg);
+  }
+
+  getMacroPolygonCoordinates(): string {
+    return this.macroPillars
+      .map(p => {
+        const pt = this.getPillarCoord(p);
+        return `${pt.x},${pt.y}`;
+      })
+      .join(' ');
+  }
+
+  getLabelPosition(pillar: MacroPillar) {
+    return this.polarToCartesian(250, 250, 218, pillar.angleDeg);
+  }
+
+  // Micro Spider Web Exploded Calculations
+  selectPillar(pillar: MacroPillar) {
+    this.activePillar.set(pillar);
+  }
+
+  resetToMacro() {
+    this.activePillar.set(null);
+  }
+
+  getMicroSkillCoord(index: number, level: number) {
+    const total = this.activePillar()?.skills.length || 6;
+    const angleStep = 360 / total;
+    const angleDeg = index * angleStep;
+    const maxRadius = 165;
+    const r = (level / 100) * maxRadius;
+    return this.polarToCartesian(250, 250, r, angleDeg);
+  }
+
+  getMicroSkillLabelCoord(index: number) {
+    const total = this.activePillar()?.skills.length || 6;
+    const angleStep = 360 / total;
+    const angleDeg = index * angleStep;
+    return this.polarToCartesian(250, 250, 192, angleDeg);
+  }
+
+  getMicroPolygonSkeleton(levelFraction: number): string {
+    const total = this.activePillar()?.skills.length || 6;
+    const angleStep = 360 / total;
+    const r = 165 * levelFraction;
+    const pts = [];
+    for (let i = 0; i < total; i++) {
+      const pt = this.polarToCartesian(250, 250, r, i * angleStep);
+      pts.push(`${pt.x},${pt.y}`);
+    }
+    return pts.join(' ');
+  }
+
+  getMicroPolygonCoordinates(): string {
+    const skills = this.activePillar()?.skills || [];
+    return skills.map((sk, i) => {
+      const pt = this.getMicroSkillCoord(i, sk.level);
+      return `${pt.x},${pt.y}`;
+    }).join(' ');
   }
 
   @HostListener('window:scroll', [])
